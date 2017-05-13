@@ -1,0 +1,22 @@
+VAI
+
+!inteiro1 @inteiro.
+!inteiro2 @inteiro.
+!multiplicacao @real.
+
+INSIRA “Digite o primeiro valor: ”.
+RECEBA !inteiro1.
+
+INSIRA “Digite o segundo valor: “.
+RECEBA !inteiro2.
+
+!multiplicacao <- !inteiro1 $* !inteiro2.
+
+
+CONDICAO [!multiplicacao $> 0]{
+	INSIRA “Primeiro maior que segundo”.
+}CONTRA{
+	INSIRA “Segundo maior que primeiro”.
+}
+
+CABEI
