@@ -28,16 +28,24 @@ public class Analisador {
 				StringBuilder token = new StringBuilder("");
 				if (caracter == '"') {
 					last = caracter;
+					
+					token.append(caracter);
+					tokens.add(token.toString());
+					token = new StringBuilder("");
 
 					while ((caracter = (char) br.read()) != -1 && caracter != '"') {
-						token.append(caracter);
-						jtp.setText(""+caracter);
-						
 						last = caracter;
 					}
 
+					token.append(caracter);
 					tokens.add(token.toString());
 					caracter = (char) br.read();
+					
+					if(caracter == '.'){
+						token = new StringBuilder("");
+						token.append(caracter);
+						tokens.add(token.toString());
+					}
 				}
 
 				if (caracter != ' ' && caracter != '\n' && caracter != '.' && caracter != '"') {
@@ -86,6 +94,8 @@ public class Analisador {
 				listafinal.add(string);
 			}
 		}
+		
+		
 		String[][] matrizfinal = new String[listafinal.size()][2];
 		for (String string : listafinal) {
 			matrizfinal[counter][0] = string;

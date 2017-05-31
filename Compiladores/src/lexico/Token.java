@@ -6,9 +6,9 @@ import java.util.Map;
 public class Token {
 
 	
-	static Map<String, String> mapTokens = new HashMap<String, String>();
+	public static Map<String, String> mapTokens = new HashMap<String, String>();
 	
-	public static Map<String, String> getTokens(){
+	static{
 		mapTokens.put("{", "{");
 		mapTokens.put("}", "}");
 		mapTokens.put(".", ";");
@@ -36,10 +36,6 @@ public class Token {
 		mapTokens.put("INSIRA", "System.out.println");
 		mapTokens.put("VAI", "main");
 		mapTokens.put("CABEI", null);
-		
-		
-		return mapTokens;
-		
 	}
 	
 	public String testToken(String token){
