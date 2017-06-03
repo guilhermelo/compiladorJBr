@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 
-import lexico.Analisador;
+import compiladores.lexico.Analisador;
 
 public class Main {
 
@@ -75,6 +75,7 @@ public class Main {
 		JButton btnAnalise = new JButton("Analisar");
 		btnAnalise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				tblToken.setModel(new DefaultTableModel(0, 2));
 				gerarArquivo(txtCode.getText());
 				popularTabela(txtAna);
 			}
@@ -92,7 +93,7 @@ public class Main {
 
 	protected void popularTabela(JTextPane jtp) {
 		Object[] indice = {"Token","Quantidade"};
-		Object[][] valores = Analisador.Analisar(jtp);
+		Object[][] valores = Analisador.analisar(jtp);
 		tblToken.setModel(new DefaultTableModel(valores,indice));
 		
 	}
@@ -106,7 +107,6 @@ public class Main {
 			arquivo.close();
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

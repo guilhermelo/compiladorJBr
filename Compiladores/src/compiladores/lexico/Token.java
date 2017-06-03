@@ -1,4 +1,4 @@
-package lexico;
+package compiladores.lexico;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,9 +25,9 @@ public class Token {
 		mapTokens.put("$-", "-");
 		mapTokens.put("$/", "/");
 		mapTokens.put("$*", "*");
-		mapTokens.put("E", "&&");
+		mapTokens.put("EE", "&&");
 		mapTokens.put("OU", "||");
-		mapTokens.put("\"\"", "\"\"");
+		mapTokens.put("\"", "\"");
 		mapTokens.put("CONDICAO", "if");
 		mapTokens.put("CONTRA", "else");
 		mapTokens.put("DURANTE", "while");
@@ -38,7 +38,7 @@ public class Token {
 		mapTokens.put("CABEI", null);
 	}
 	
-	public String testToken(String token){
+	public static String existToken(String token){
 		
 		switch (token) {
 		case "{":
