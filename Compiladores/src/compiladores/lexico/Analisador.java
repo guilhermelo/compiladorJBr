@@ -55,7 +55,7 @@ public class Analisador {
 				}
 				
 				//if (caracter == '.' || caracter == '{' || caracter == '}' || caracter == '[' || caracter == ']') {
-				if(!verificaTokenExistente(caracter) && caracter != '\n'){
+				if(!verificaTokenExistente(caracter) && caracter != '\n' && caracter != '\t'){
 					tokens.add(Character.toString(caracter));
 				}
 
@@ -72,7 +72,7 @@ public class Analisador {
 				}
 
 				//if (caracter == '.' || caracter == '{' || caracter == '}' || caracter == '[' || caracter == ']') {
-				if(Token.mapTokens.containsKey(Character.toString(caracter)) && caracter != '\n'){
+				if(Token.mapTokens.containsKey(Character.toString(caracter)) && caracter != '\n' && caracter != '\t'){
 					tokens.add(Character.toString(caracter));
 //					if(caracter == '.'){
 //						pontoInserido = true;						

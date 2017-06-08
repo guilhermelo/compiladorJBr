@@ -1,16 +1,16 @@
 VAI
 
-!inteiro1 @inteiro.
-!inteiro2 @inteiro.
+!valor1 @inteiro.
+!valor2 @inteiro.
 !multiplicacao @real.
 
 INSIRA "Digite o primeiro valor: ".
-RECEBA !inteiro1.
+RECEBA !valor1.
 
 INSIRA "Digite o segundo valor: ".
-RECEBA !inteiro2.
+RECEBA !valor2.
 
-!multiplicacao <- !inteiro1 $* !inteiro2.
+!multiplicacao <- !valor1 $* !valor2.
 
 
 CONDICAO [!multiplicacao $> 0]{
