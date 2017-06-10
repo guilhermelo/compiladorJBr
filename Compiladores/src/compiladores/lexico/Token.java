@@ -35,7 +35,10 @@ public class Token {
 		mapTokens.put("RECEBA", "System.in");
 		mapTokens.put("INSIRA", "System.out.println");
 		mapTokens.put("VAI", "main");
-		mapTokens.put("CABEI", null);
+		mapTokens.put("@inteiro", null);
+		mapTokens.put("@real", null);
+		mapTokens.put("@binario", null);
+		mapTokens.put("@letras", null);
 	}
 	
 	public static String existToken(String token){
