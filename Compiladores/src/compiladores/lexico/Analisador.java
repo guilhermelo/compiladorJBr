@@ -46,6 +46,7 @@ public class Analisador {
 						token = new StringBuilder("");
 						token.append(caracter);
 						tokens.add(token.toString());
+						token = new StringBuilder();
 						pontoInserido = true;
 					}
 				}
@@ -53,9 +54,8 @@ public class Analisador {
 				if (verificaTokenExistente(caracter)) {
 					token.append(caracter);
 				}
-				
 				//if (caracter == '.' || caracter == '{' || caracter == '}' || caracter == '[' || caracter == ']') {
-				if(!verificaTokenExistente(caracter) && caracter != '\n' && caracter != '\t'){
+				if(!verificaTokenExistente(caracter) && caracter != '\n' && caracter != '\t' && caracter != '.'){
 					tokens.add(Character.toString(caracter));
 				}
 
@@ -78,7 +78,7 @@ public class Analisador {
 //						pontoInserido = true;						
 //					}
 				}
-				
+				if(token.length() > 0)
 				tokens.add(token.toString());					
 				asci = br.read();
 				caracter = (char) asci;
@@ -105,15 +105,19 @@ public class Analisador {
 
 	private static String[][] geraMatriz(List<String> lista) {
 
+		List<String> listaarranjo = new ArrayList<String>();
 		List<String> listafinal = new ArrayList<String>();
-
 		int counter = 0;
 		for (String string : lista) {
-			if (!listafinal.contains(string)) {
-				listafinal.add(string);
+			if (!listaarranjo.contains(string)) {
+				listaarranjo.add(string);
 			}
 		}
 		
+		for (String string : listaarranjo ) {
+			if(Token.mapTokens.containsKey(string) || string.startsWith("!"))
+				listafinal.add(string);
+		}
 		
 		String[][] matrizfinal = new String[listafinal.size()][2];
 		for (String string : listafinal) {
