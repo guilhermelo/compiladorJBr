@@ -1,5 +1,6 @@
 package compiladores.lexico;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,8 +12,13 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.swing.JTextPane;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class Analisador {
+	
+	private static List<String> listaErros = new ArrayList<String>();
 
 	public static String[][] analisar(JTextPane jtp) {
 		try {
@@ -25,6 +31,7 @@ public class Analisador {
 			int asci = br.read();
 			caracter = (char) asci;
 			boolean pontoInserido = false; 
+			
 			while (asci != -1) {
 				StringBuilder token = new StringBuilder("");
 				if (caracter == '"') {
@@ -54,7 +61,7 @@ public class Analisador {
 				if (verificaTokenExistente(caracter)) {
 					token.append(caracter);
 				}
-				//if (caracter == '.' || caracter == '{' || caracter == '}' || caracter == '[' || caracter == ']') {
+				
 				if(!verificaTokenExistente(caracter) && caracter != '\n' && caracter != '\t' && caracter != '.'){
 					tokens.add(Character.toString(caracter));
 				}
@@ -63,7 +70,6 @@ public class Analisador {
 					asci = br.read();
 					caracter = (char) asci;
 
-					//if ((caracter != ' ') && caracter != '\n' && caracter != '.' && caracter != '"' && caracter != '{' && caracter != '}' && caracter != '[' && caracter != ']') {
 					if(verificaTokenExistente(caracter)){	
 						token.append(caracter);
 					} else {
@@ -71,19 +77,16 @@ public class Analisador {
 					}
 				}
 
-				//if (caracter == '.' || caracter == '{' || caracter == '}' || caracter == '[' || caracter == ']') {
 				if(Token.mapTokens.containsKey(Character.toString(caracter)) && caracter != '\n' && caracter != '\t'){
 					tokens.add(Character.toString(caracter));
-//					if(caracter == '.'){
-//						pontoInserido = true;						
-//					}
 				}
+				
 				if(token.length() > 0)
 				tokens.add(token.toString());					
 				asci = br.read();
 				caracter = (char) asci;
 			}
-			return geraMatriz(tokens);
+			return geraMatriz(tokens, jtp);
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -103,7 +106,7 @@ public class Analisador {
 		return false;
 	}
 
-	private static String[][] geraMatriz(List<String> lista) {
+	private static String[][] geraMatriz(List<String> lista, JTextPane jtp) {
 
 		List<String> listaarranjo = new ArrayList<String>();
 		List<String> listafinal = new ArrayList<String>();
@@ -115,8 +118,11 @@ public class Analisador {
 		}
 		
 		for (String string : listaarranjo ) {
-			if(Token.mapTokens.containsKey(string) || string.startsWith("!"))
+			if(Token.mapTokens.containsKey(string) || string.startsWith("!")){
 				listafinal.add(string);
+			}else{
+				listaErros.add(string);
+			}
 		}
 		
 		String[][] matrizfinal = new String[listafinal.size()][2];
@@ -125,8 +131,23 @@ public class Analisador {
 			matrizfinal[counter][1] = new Integer(Collections.frequency(lista, string)).toString();
 			counter++;
 		}
+		
+		if(listaErros.size() > 0){
+			mostrarErrosPainel(jtp);
+		}
 
 		return matrizfinal;
+	}
+	
+	private static void mostrarErrosPainel(JTextPane jtp){
+		
+		StringBuilder listaDeErros = new StringBuilder("");
+		
+		for (String erro : listaErros) {
+			listaDeErros.append("Token \"" + erro + "\"" + " não identificado. \n");
+		}
+		
+		jtp.setText(listaDeErros.toString());
 	}
 
 }

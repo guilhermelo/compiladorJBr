@@ -64,22 +64,22 @@ public class Main {
 		separator.setBounds(112, 473, 1, 2);
 		frame.getContentPane().add(separator);
 		
-		JLabel lblAnalisando = new JLabel("Analisando");
+		JLabel lblAnalisando = new JLabel("Erros: ");
 		lblAnalisando.setBounds(12, 488, 101, 15);
 		frame.getContentPane().add(lblAnalisando);
 		
-		JTextPane txtAna = new JTextPane();
-		txtAna.setBounds(12, 516, 432, 47);
-		frame.getContentPane().add(txtAna);
+		JTextPane txtErros = new JTextPane();
+		txtErros.setBounds(12, 516, 432, 47);
 		
 		JButton btnAnalise = new JButton("Analisar");
 		btnAnalise.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tblToken.setModel(new DefaultTableModel(0, 2));
 				gerarArquivo(txtCode.getText());
-				popularTabela(txtAna);
+				popularTabela(txtErros);
 			}
 		});
+		
 		btnAnalise.setBounds(456, 154, 92, 25);
 		frame.getContentPane().add(btnAnalise);
 		
@@ -95,7 +95,6 @@ public class Main {
 		Object[] indice = {"Token","Quantidade"};
 		Object[][] valores = Analisador.analisar(jtp);
 		tblToken.setModel(new DefaultTableModel(valores,indice));
-		
 	}
 
 	protected void gerarArquivo(String text) {
