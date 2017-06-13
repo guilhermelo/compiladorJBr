@@ -70,6 +70,7 @@ public class Main {
 		
 		JTextPane txtErros = new JTextPane();
 		txtErros.setBounds(12, 516, 432, 47);
+		frame.getContentPane().add(txtErros);
 		
 		JButton btnAnalise = new JButton("Analisar");
 		btnAnalise.addActionListener(new ActionListener() {
