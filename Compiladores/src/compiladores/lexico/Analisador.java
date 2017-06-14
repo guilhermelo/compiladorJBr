@@ -21,6 +21,7 @@ public class Analisador {
 	private static List<String> listaErros = new ArrayList<String>();
 
 	public static String[][] analisar(JTextPane jtp) {
+		
 		try {
 			InputStream is = new FileInputStream("arquivo/jayBR.jbr");
 
