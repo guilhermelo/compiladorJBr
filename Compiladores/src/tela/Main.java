@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -68,9 +69,12 @@ public class Main {
 		lblAnalisando.setBounds(12, 488, 101, 15);
 		frame.getContentPane().add(lblAnalisando);
 		
-		JTextPane txtErros = new JTextPane();
-		txtErros.setBounds(12, 516, 432, 47);
-		frame.getContentPane().add(txtErros);
+		JScrollPane scrollPane_1 = new JScrollPane();
+		scrollPane_1.setBounds(12, 516, 432, 47);
+		frame.getContentPane().add(scrollPane_1);
+		
+		JTextArea txtErros = new JTextArea();
+		scrollPane_1.setViewportView(txtErros);
 		
 		JButton btnAnalise = new JButton("Analisar");
 		btnAnalise.addActionListener(new ActionListener() {
@@ -92,7 +96,7 @@ public class Main {
 		scrollPane.setViewportView(tblToken);
 	}
 
-	protected void popularTabela(JTextPane jtp) {
+	protected void popularTabela(JTextArea jtp) {
 		Object[] indice = {"Token","Quantidade"};
 		Object[][] valores = Analisador.analisar(jtp);
 		tblToken.setModel(new DefaultTableModel(valores,indice));

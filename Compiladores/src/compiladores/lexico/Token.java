@@ -39,6 +39,7 @@ public class Token {
 		mapTokens.put("@real", null);
 		mapTokens.put("@binario", null);
 		mapTokens.put("@letras", null);
+		mapTokens.put("CABEI", null);
 	}
 	
 	public static String existToken(String token){

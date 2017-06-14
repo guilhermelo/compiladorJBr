@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -20,7 +20,7 @@ public class Analisador {
 	
 	private static List<String> listaErros = new ArrayList<String>();
 
-	public static String[][] analisar(JTextPane jtp) {
+	public static String[][] analisar(JTextArea jtp) {
 		
 		try {
 			InputStream is = new FileInputStream("arquivo/jayBR.jbr");
@@ -71,7 +71,7 @@ public class Analisador {
 					asci = br.read();
 					caracter = (char) asci;
 
-					if(verificaTokenExistente(caracter)){	
+					if(verificaTokenExistente(caracter) && asci != -1){	
 						token.append(caracter);
 					} else {
 						break;
@@ -107,7 +107,7 @@ public class Analisador {
 		return false;
 	}
 
-	private static String[][] geraMatriz(List<String> lista, JTextPane jtp) {
+	private static String[][] geraMatriz(List<String> lista, JTextArea jtp) {
 
 		List<String> listaarranjo = new ArrayList<String>();
 		List<String> listafinal = new ArrayList<String>();
@@ -117,11 +117,12 @@ public class Analisador {
 				listaarranjo.add(string);
 			}
 		}
-		
+		listaErros = new ArrayList<String>();
 		for (String string : listaarranjo ) {
 			if(Token.mapTokens.containsKey(string) || string.startsWith("!")){
 				listafinal.add(string);
 			}else{
+				if(!string.chars().allMatch(Character::isDigit))//verifica se cada caracter é digito obs: java 8
 				listaErros.add(string);
 			}
 		}
@@ -140,14 +141,13 @@ public class Analisador {
 		return matrizfinal;
 	}
 	
-	private static void mostrarErrosPainel(JTextPane jtp){
+	private static void mostrarErrosPainel(JTextArea jtp){
 		
 		StringBuilder listaDeErros = new StringBuilder("");
 		
 		for (String erro : listaErros) {
 			listaDeErros.append("Token \"" + erro + "\"" + " não identificado. \n");
 		}
-		
 		jtp.setText(listaDeErros.toString());
 	}
 
